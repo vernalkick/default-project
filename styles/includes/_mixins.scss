@@ -1,0 +1,198 @@
+
+// -------------------------------------------------------------------------------------
+
+//	M I X I N S
+
+// -------------------------------------------------------------------------------------
+
+$accent: #ff6151;
+$accent_hover: darken($accent, 15%);
+
+$basefont: sans-serif;
+
+// - General ---------------------------------------------------------------------------
+
+$viewport: 0px;
+$is_ie: false;
+
+// Max/Min Width
+
+@mixin max-width($w) {
+	@if $is_ie == true {
+		width: $w;
+	} @else {
+		max-width: $w;
+	}
+}
+
+@mixin min-width($w) {
+	@if $is_ie == true {
+		width: $w;
+	} @else {
+		min-width: $w;
+	}
+}
+
+// RGBa Colors
+
+@mixin color($fallback, $col, $trans:1) {
+	@if $is_ie == true {
+		color: $fallback;
+	} @else {
+		color: rgba($col, $trans);
+	}
+}
+
+@mixin background-color($fallback, $col, $trans:1) {
+	@if $is_ie == true {
+		background-color: $fallback;
+	} @else {
+		background-color: rgba($col, $trans);
+	}
+}
+
+@mixin border-color($fallback, $col, $trans:1) {
+	@if $is_ie == true {
+		border-color: $fallback;
+	} @else {
+		border-color: rgba($col, $trans);
+	}
+}
+
+// Linear Gradient
+
+@mixin linear-gradient($pos, $G1, $G2: false,
+                       $G3: false, $G4: false,
+                       $G5: false, $G6: false,
+                       $G7: false, $G8: false,
+                       $G9: false, $G10: false,
+                       $G11: false, $G12: false,
+                       $G13: false, $G14: false,
+                       $G15: false, $G16: false,
+                       $G17: false, $G18: false,
+                       $G19: false, $G20: false,
+                       $G21: false, $G22: false,
+                       $deprecated-pos1: left top,
+                       $deprecated-pos2: left bottom,
+                       $fallback: false) {
+  // Detect what type of value exists in $pos
+  $pos-type: type-of(nth($pos, 1));
+
+  // If $pos is missing from mixin, reassign vars and add default position
+  @if ($pos-type == color) or (nth($pos, 1) == "transparent")  {
+  	$G22: $G21; $G21: $G20; $G20: $G19; $G19: $G18; $G18: $G17; $G17: $G16; $G16: $G15; $G15: $G14;
+    $G14: $G13; $G13: $G12; $G12: $G11; $G11: $G10;
+    $G10: $G9; $G9: $G8; $G8: $G7; $G7: $G6; $G6: $G5;
+     $G5: $G4; $G4: $G3; $G3: $G2; $G2: $G1; $G1: $pos;
+    $pos: top; // Default position
+  }
+
+  $full: compact($G1, $G2, $G3, $G4, $G5, $G6, $G7, $G8, $G9, $G10, $G11, $G12, $G13, $G14, $G15, $G16, $G17, $G18, $G19, $G20, $G21, $G22);
+
+  // Set $G1 as the default fallback color
+  $fallback-color: nth($G1, 1);
+
+  // If $fallback is a color use that color as the fallback color
+  @if (type-of($fallback) == color) or ($fallback == "transparent") {
+    $fallback-color: $fallback;
+  }
+
+  background-color: $fallback-color;
+  background: deprecated-webkit-gradient(linear, $deprecated-pos1, $deprecated-pos2, $full); // Safari <= 5.0
+  background:  -webkit-linear-gradient($pos, $full); // Safari 5.1+, Chrome
+  background:     -moz-linear-gradient($pos, $full);
+  background:      -ms-linear-gradient($pos, $full);
+  background:       -o-linear-gradient($pos, $full);
+  background: unquote("linear-gradient(#{$pos}, #{$full})");
+}
+
+// Inner Shadow (apply on container element)
+
+@mixin innerShadow($size: 1px, $brad: 0px, $opacity: .1) {
+	position: relative;
+	&:before {
+		content:'';
+	    position:absolute;
+	    width:100%;
+	    height:100%;
+	    -moz-box-shadow:inset 0px 0px 0px $size rgba(0, 0, 0, $opacity);
+	    -webkit-box-shadow:inset 0px 0px 0px $size rgba(0, 0, 0, $opacity);
+	    box-shadow:inset 0px 0px 0px $size rgba(0, 0, 0, $opacity);
+	    border-radius: $brad;
+	    z-index:999999;
+	    pointer-events: none;
+	    user-select: none;
+	   	display: block;
+	}
+}
+
+// - Legacy ----------------------------------------------------------------------------
+
+@mixin ie {
+	@if $is_ie == true {
+		@content;
+	}
+}
+
+// Feature detection
+
+@mixin unsupported($feat) {
+	.no-#{$feat} & { @content; }
+}
+
+@mixin supported($feat) {
+	.#{$feat} & { @content; }
+}
+
+// IE Fixes
+
+@mixin ie($version) {
+	.lt-ie#{$version} & { @content; }
+}
+
+// - Grid ------------------------------------------------------------------------------
+
+@mixin gridswitch($point) {
+	$viewport: $point;
+	$columns_total: if($viewport > 600px, 6, 3);
+	$gutter_width: if($viewport > 600px, 2, 5);
+	$column_width: if($viewport > 600px, 15, 30);
+}
+
+$columns_total: 3;
+$gutter_width: 5;
+$column_width: 30;
+
+@mixin column($columns, $parent_column_number:$columns_total, $side:left) {
+
+	width: percentage((($columns * $column_width) + ($gutter-width * ($columns - 1))) / (($column_width * $parent_column_number) + ($gutter-width * ($parent_column_number - 1))));
+	float: $side;
+	@if $side == 'left' { margin-right: percentage($gutter-width / (($column_width * $parent_column_number) + ($gutter-width * ($parent_column_number - 1)))); }
+	@if $side == 'right' { margin-left: percentage($gutter-width / (($column_width * $parent_column_number) + ($gutter-width * ($parent_column_number - 1)))); }
+}
+
+@mixin showgrid() {
+	@if $viewport > 600px {
+		.wrap { @include linear-gradient(left, rgba(#0096ff, .2) 0%, rgba(#0096ff, .2) 15%, transparent 15%, transparent 17%, rgba(#0096ff, .2) 17%, rgba(#0096ff, .2) 32%, transparent 32%, transparent 34%, rgba(#0096ff, .2) 34%, rgba(#0096ff, .2) 49%, transparent 49%, transparent 51%, rgba(#0096ff, .2) 51%, rgba(#0096ff, .2) 66%, transparent 66%, transparent 68%, rgba(#0096ff, .2) 68%, rgba(#0096ff, .2) 83%, transparent 83%, transparent 85%, rgba(#0096ff, .2) 85%, rgba(#0096ff, .2) 100% ); }
+	} @else {
+		.wrap { @include linear-gradient(left, rgba(#0096ff, .2) 0%, rgba(#0096ff, .2) 30%, transparent 30%, transparent 35%, rgba(#0096ff, .2) 35%, rgba(#0096ff, .2) 65%, transparent 65%, transparent 70%, rgba(#0096ff, .2) 70%, rgba(#0096ff, .2) 100%); }
+	}
+}
+
+// - Typography ------------------------------------------------------------------------
+
+@mixin ligatures{
+	-moz-font-feature-settings:"liga=1, dlig=1";
+  	-ms-font-feature-settings:"liga", "dlig";
+  	-o-font-feature-settings:"liga", "dlig";
+  	-webkit-font-feature-settings:"liga", "dlig";
+  	font-feature-settings:"liga", "dlig";
+}
+
+// - Media-Queries ---------------------------------------------------------------------
+
+@mixin mq($w){
+	@if $w == $width {
+		@content;
+	}
+}

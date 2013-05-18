@@ -1,0 +1,90 @@
+/*
+-------------------------------------------------------------------------------------
+	Defaults
+------------------------------------------------------------------------------------- */
+
+body { color: #333; -webkit-font-smoothing: antialiased; text-align: center; font-family: $basefont; }
+
+/* -- Viewport Fixes ---------------------------------------------------------------- */
+
+@-webkit-viewport{width:device-width}
+@-moz-viewport{width:device-width}
+@-ms-viewport{width:device-width}
+@-o-viewport{width:device-width}
+@viewport{width:device-width}
+
+/* -- Bloc elements ----------------------------------------------------------------- */
+
+/* Wrapper */
+
+.wrap { width: 84%; @include max-width(1000px); margin: 0 auto; text-align: left; @include clearfix; }
+
+/* Images */
+
+img { max-width: 100%; }
+a img { border: none; }
+
+/* Figures */
+
+figure { margin-bottom: .5em; }
+figure img { margin-bottom: 1em; }
+figure figcaption { margin-bottom: 1.5em; font-size: .875em; color: #999; }
+
+/* -- Typography -------------------------------------------------------------------- */
+
+/* Links */
+
+a { color: $accent; @include transition(.2s color ease-in-out, .2s background-color ease-in-out, .2s border-color ease-in-out); text-decoration: none; font-weight: 600; }
+a:hover { color: $accent_hover; }
+
+/* Selection */
+
+::selection, ::-moz-selection { background: $accent; color: #fff; }
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 { margin-top: 1.5em; margin-bottom: 1em; }
+
+h1 { color: $accent; font-size: 2.25em; margin-bottom: .5em; }
+h2 {}
+h3 {}
+h4 {}
+h5 { text-transform: uppercase; letter-spacing: .1em; font-size: .875em; }
+h6 { text-transform: uppercase; letter-spacing: .1em; font-weight: 400; color: #888; font-size: .875em; }
+
+p+h1, p+h2, p+h3, p+h4, p+h5, p+h6 { margin-top: 1.5em; }
+
+/* Paragraphs */
+
+p { line-height: 1.6em; margin-top: 0; margin-bottom: 1.5em; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; }
+.lead { font-size: 1.4em; line-height: 1.4em; }
+
+/* Blockquotes */
+
+blockquote { border-left: .5em solid #e5e5e5; margin: 0; padding: 0 1.5em; }
+blockquote p { color: #777; }
+
+/* Lists */
+
+ul { padding: 0; }
+ul li { line-height: 1.5em; margin-bottom: 1.5em; }
+
+ol { padding: 0; }
+ol li { line-height: 1.5em; margin-bottom: 1.5em; }
+
+/* Hr */
+
+hr { display: block; height: 1px; @include background-color(#e5e5e5, #000, .1); border: none; width: 20%; margin: 2em 40% 2em; }
+
+/* -- Buttons ----------------------------------------------------------------------- */
+
+.btn { background-color: $accent; color: #fff; padding: .75em; line-height: 1em; border-radius: 4px; @include inline-block; }
+.btn:hover { background-color: $accent_hover; color: #fff; }
+.btn::before { margin-right: .5em; }
+
+/* -- Forms ------------------------------------------------------------------------- */
+
+form {}
+form label {}
+form input[type="text"], form input[type="search"], form input[type="tel"], form input[type="email"] {}
+form textarea {}

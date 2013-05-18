@@ -1,0 +1,11 @@
+@import "_mixins";
+@import "_base";
+
+$width: 0px;
+@import "master";
+
+@media screen and (min-width: 500px) {
+	$width: 500px;
+	@import "master";
+}
+
