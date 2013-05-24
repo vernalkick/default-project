@@ -4,8 +4,12 @@
 $width: 0px;
 @import "master";
 
-@media screen and (min-width: 500px) {
-	$width: 500px;
+$width: 500px;
+@media screen and (min-width: $width) {
 	@import "master";
 }
 
+$width: 800px;
+@media screen and (min-width: $width) {
+	@import "master";
+}

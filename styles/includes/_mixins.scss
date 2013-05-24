@@ -164,7 +164,6 @@ $gutter_width: 5;
 $column_width: 30;
 
 @mixin column($columns, $parent_column_number:$columns_total, $side:left) {
-
 	width: percentage((($columns * $column_width) + ($gutter-width * ($columns - 1))) / (($column_width * $parent_column_number) + ($gutter-width * ($parent_column_number - 1))));
 	float: $side;
 	@if $side == 'left' { margin-right: percentage($gutter-width / (($column_width * $parent_column_number) + ($gutter-width * ($parent_column_number - 1)))); }
@@ -172,10 +171,11 @@ $column_width: 30;
 }
 
 @mixin showgrid() {
+	$c: $accent;
 	@if $viewport > 600px {
-		.wrap { @include linear-gradient(left, rgba(#0096ff, .2) 0%, rgba(#0096ff, .2) 15%, transparent 15%, transparent 17%, rgba(#0096ff, .2) 17%, rgba(#0096ff, .2) 32%, transparent 32%, transparent 34%, rgba(#0096ff, .2) 34%, rgba(#0096ff, .2) 49%, transparent 49%, transparent 51%, rgba(#0096ff, .2) 51%, rgba(#0096ff, .2) 66%, transparent 66%, transparent 68%, rgba(#0096ff, .2) 68%, rgba(#0096ff, .2) 83%, transparent 83%, transparent 85%, rgba(#0096ff, .2) 85%, rgba(#0096ff, .2) 100% ); }
+		.wrap { @include linear-gradient(left, rgba($c, .2) 0%, rgba($c, .2) 15%, transparent 15%, transparent 17%, rgba($c, .2) 17%, rgba($c, .2) 32%, transparent 32%, transparent 34%, rgba($c, .2) 34%, rgba($c, .2) 49%, transparent 49%, transparent 51%, rgba($c, .2) 51%, rgba($c, .2) 66%, transparent 66%, transparent 68%, rgba($c, .2) 68%, rgba($c, .2) 83%, transparent 83%, transparent 85%, rgba($c, .2) 85%, rgba($c, .2) 100% ); }
 	} @else {
-		.wrap { @include linear-gradient(left, rgba(#0096ff, .2) 0%, rgba(#0096ff, .2) 30%, transparent 30%, transparent 35%, rgba(#0096ff, .2) 35%, rgba(#0096ff, .2) 65%, transparent 65%, transparent 70%, rgba(#0096ff, .2) 70%, rgba(#0096ff, .2) 100%); }
+		.wrap { @include linear-gradient(left, rgba($c, .2) 0%, rgba($c, .2) 30%, transparent 30%, transparent 35%, rgba($c, .2) 35%, rgba($c, .2) 65%, transparent 65%, transparent 70%, rgba($c, .2) 70%, rgba($c, .2) 100%); }
 	}
 }
 
@@ -193,6 +193,9 @@ $column_width: 30;
 
 @mixin mq($w){
 	@if $w == $width {
+
+		@include gridswitch($w);
+
 		@content;
 	}
 }
