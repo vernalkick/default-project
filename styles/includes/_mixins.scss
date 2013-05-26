@@ -59,6 +59,13 @@ $is_ie: false;
 	}
 }
 
+@mixin opacity($opacity) {
+	zoom: 1;
+	opacity: $opacity;
+	$opacity: $opacity * 100;
+	filter: alpha(opacity=#{$opacity});
+}
+
 // Linear Gradient
 
 @mixin linear-gradient($pos, $G1, $G2: false,
