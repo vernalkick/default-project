@@ -3,6 +3,7 @@
 	Defaults
 ------------------------------------------------------------------------------------- */
 
+html { -webkit-text-size-adjust: 100%; }
 body { color: #333; -webkit-font-smoothing: antialiased; text-align: center; font-family: $basefont; }
 
 /* -- Viewport Fixes ---------------------------------------------------------------- */
