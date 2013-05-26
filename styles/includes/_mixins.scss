@@ -144,7 +144,11 @@ $is_ie: false;
 // Feature detection
 
 @mixin unsupported($feat) {
-	.no-#{$feat} & { @content; }
+	@if $feat == "flexbox" {
+		.no-#{$feat}.no-#{$feat}legacy & { @content; }
+	} @else {
+		.no-#{$feat} & { @content; }
+	}
 }
 
 @mixin supported($feat) {
