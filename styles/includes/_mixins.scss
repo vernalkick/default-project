@@ -66,6 +66,14 @@ $is_ie: false;
 	filter: alpha(opacity=#{$opacity});
 }
 
+@mixin ellipsis() {
+	white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+}
+
 // Linear Gradient
 
 @mixin linear-gradient($pos, $G1, $G2: false,
