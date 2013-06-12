@@ -143,12 +143,6 @@ $is_ie: false;
 
 // - Legacy ----------------------------------------------------------------------------
 
-@mixin ie {
-	@if $is_ie == true {
-		@content;
-	}
-}
-
 // Feature detection
 
 @mixin unsupported($feat) {
@@ -165,8 +159,14 @@ $is_ie: false;
 
 // IE Fixes
 
-@mixin ie($version) {
-	.lt-ie#{$version} & { @content; }
+@mixin ie($version:false) {
+	@if $version == false {
+		@if $is_ie == true {
+			@content;
+		}
+	} @else {
+		.lt-ie#{$version} & { @content; }
+	}
 }
 
 // - Grid ------------------------------------------------------------------------------
