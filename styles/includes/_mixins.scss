@@ -66,12 +66,19 @@ $is_ie: false;
 	filter: alpha(opacity=#{$opacity});
 }
 
-@mixin ellipsis() {
+@mixin ellipsis {
 	white-space: nowrap;
 	width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: block;
+}
+
+@mixin hyphenate {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
 
 // Linear Gradient
