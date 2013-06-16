@@ -15,23 +15,7 @@ $basefont: sans-serif;
 $viewport: 0px;
 $is_ie: false;
 
-// Max/Min Width
-
-@mixin max-width($w) {
-	@if $is_ie == true {
-		width: $w;
-	} @else {
-		max-width: $w;
-	}
-}
-
-@mixin min-width($w) {
-	@if $is_ie == true {
-		width: $w;
-	} @else {
-		min-width: $w;
-	}
-}
+// - Transparency and RGBa Colors ------------------------------------------------------
 
 // RGBa Colors
 
@@ -50,6 +34,8 @@ $is_ie: false;
 	@include supported(rgba) { border-color: rgba($col, $trans); }
 }
 
+// Transparency (opacity)
+
 @mixin opacity($opacity) {
 	zoom: 1;
 	opacity: $opacity;
@@ -57,20 +43,7 @@ $is_ie: false;
 	filter: alpha(opacity=#{$opacity});
 }
 
-@mixin ellipsis {
-	white-space: nowrap;
-	width: 100%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: block;
-}
-
-@mixin hyphenate {
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
-}
+// - Special Effects -------------------------------------------------------------------
 
 // Linear Gradient
 
@@ -167,6 +140,24 @@ $is_ie: false;
 	}
 }
 
+// Max/Min Width fixes
+
+@mixin max-width($w) {
+	@if $is_ie == true {
+		width: $w;
+	} @else {
+		max-width: $w;
+	}
+}
+
+@mixin min-width($w) {
+	@if $is_ie == true {
+		width: $w;
+	} @else {
+		min-width: $w;
+	}
+}
+
 // - Grid ------------------------------------------------------------------------------
 
 @mixin gridswitch($point) {
@@ -204,6 +195,38 @@ $column_width: 30;
   	-o-font-feature-settings:"liga", "dlig";
   	-webkit-font-feature-settings:"liga", "dlig";
   	font-feature-settings:"liga", "dlig";
+}
+
+@mixin ellipsis {
+	white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+}
+
+@mixin hyphenate {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+// - Animations -------------------------------------------------------------------------
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
 }
 
 // - Media-Queries ---------------------------------------------------------------------
