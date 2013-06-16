@@ -36,27 +36,18 @@ $is_ie: false;
 // RGBa Colors
 
 @mixin color($fallback, $col, $trans:1) {
-	@if $is_ie == true {
-		color: $fallback;
-	} @else {
-		color: rgba($col, $trans);
-	}
+	color: $fallback;
+	@include supported(rgba) { color: rgba($col, $trans); }
 }
 
 @mixin background-color($fallback, $col, $trans:1) {
-	@if $is_ie == true {
-		background-color: $fallback;
-	} @else {
-		background-color: rgba($col, $trans);
-	}
+	background-color: background-color: $fallback;
+	@include supported(rgba) { background-color: rgba($col, $trans); }
 }
 
 @mixin border-color($fallback, $col, $trans:1) {
-	@if $is_ie == true {
-		border-color: $fallback;
-	} @else {
-		border-color: rgba($col, $trans);
-	}
+	border-color: $fallback;
+	@include supported(rgba) { border-color: rgba($col, $trans); }
 }
 
 @mixin opacity($opacity) {
